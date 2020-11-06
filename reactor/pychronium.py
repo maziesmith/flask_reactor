@@ -1,6 +1,6 @@
 class Pychronium:
     """
-    Pychronium is an energy source recovered from a recent supernova event in the andromeda galaxy.
+    Pychronium is an energy source recovered from a recent supernova event in the andromeda galaxy. <br>
     Pychronium absorbs reactant nucleii and transmutates all subatomic particles into pychron.
     """
 
