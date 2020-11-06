@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block body %}
+<hr />
+<div id="grid-container">
+  <div class="grid-item  grid-item-one">
+    <h3 id="industry__Header">Recent Articles</h3>
+    {% for item in news %}
+    <a class="industry__Link" href="{{item[1][1]}}" target="_blank">> {{item[0][1]}}</a>
+    <hr class="separator" />
+    {% endfor %}
+  </div>
+  <div class="grid-item  grid-item-two">
+    <br/>
+    <div>
+      <input id="industry__TextBox" type="text" value="" placeholder="search google" />
+      <button id="industry__Search">Search news</button>
+    </div>
+    <br/>
+    <hr/>
+    <br/>
+    <div id="industry__Companies">
+      <h2>Industry Leaders</h2>
+      <ul id="industry__List">
+        <li>
+          <a href="https://www.solvay.com/en/" target="_blank" alt="solvay-tag">Solvay</a>
+        </li>
+        <br />
+        <li>
+          <a href="https://www.dow.com/en-us" target="_blank" alt="dow-tag">Dow</a>
+        </li>
+        <br />
+        <li>
+          <a href="https://www.basf.com/us/en.html" target="_blank" alt="basf-tag">BASF</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block script %}
+
+<script>
+  const searchInput = document.getElementById("industry__TextBox");
+  const searchButton = document.getElementById("industry__Search");
+  const newsLinks = document.querySelectorAll('.industry__Link')
+  searchButton.addEventListener("click", () => {
+    window.open(`https://google.com/search?q=${searchInput.value}`);
+    searchInput.value = "";
+  });
+  newsLinks.forEach(link => {
+    link.addEventListener('mouseover', () => {
+      link.classList.add("industry__LinkToggle");
+    })
+  })
+
+</script>
+
+{% endblock %}

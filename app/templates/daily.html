@@ -1,0 +1,154 @@
+{% extends 'base.html' %} {% block body %}
+<div id="daily__Container">
+  <div id="daily__Heading">
+    <h3>- ELEMENT OF THE DAY -</h3>
+  </div>
+
+  <br />
+  <div id="daily__Content">
+    <table style="width: 90%">
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Element</p>
+        </td>
+        <td class="col-2">
+          <p p class="daily__TableData">{{element['name']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Symbol</p>
+        </td>
+        <td class="col-2">
+          <p class="daily__TableData">{{element['symbol']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1"><p class="daily__TableData">Melting point</p></td>
+        <td id="grid-containerDailyMelting">
+          <p
+            id="daily__Melting"
+            class="grid-item-one-daily daily__TableData col-2"
+          >
+            {{element['melting point']}} F
+          </p>
+          <img
+            id="daily__ToggleDayOne"
+            class="grid-item-daily grid-item-two-daily grid-button daily-button-day"
+            src="{{url_for('static', filename='img/toggleday.png')}}"
+            alt="toggle-day-melting"
+          />
+          <img
+            id="daily__ToggleNightOne"
+            class="grid-item-daily grid-item-two-daily grid-button daily-button-night"
+            src="{{url_for('static', filename='img/togglenight.png')}}"
+            alt="toggle-night-melting"
+            style="display: none"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1"><p class="daily__TableData">Boiling point</p></td>
+        <td id="grid-containerDailyBoiling">
+          <p
+            id="daily__Boiling"
+            class="grid-item-test grid-item-one-test daily__TableData col-2"
+          >
+            {{element['boiling point']}} F
+          </p>
+          <img
+            id="daily__ToggleDayTwo"
+            class="grid-item-daily grid-item-two-daily grid-button daily-button-day"
+            src="{{url_for('static', filename='img/toggleday.png')}}"
+            alt="toggle-day-boiling"
+          />
+          <img
+            id="daily__ToggleNightTwo"
+            class="grid-item-daily grid-item-two-daily grid-button daily-button-night"
+            src="{{url_for('static', filename='img/togglenight.png')}}"
+            alt="toggle-night-boiling"
+            style="display: none"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Category</p>
+        </td>
+        <td class="col-2">
+          <p class="daily__TableData">{{element['class']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Period</p>
+        </td>
+        <td class="col-2">
+          <p class="daily__TableData">{{element['period']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Weight</p>
+        </td>
+        <td class="col-2">
+          <p class="daily__TableData">{{element['weight']}} Daltons</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Atomic number</p>
+        </td>
+        <td class="col-2">
+          <p class="daily__TableData">{{element['atomic number']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1">
+          <p class="daily__TableData">Room Temp</p>
+        </td>
+        <td class="col-2">
+          <p class="daily__TableData">{{element['phase']}}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+  const dateTag = document.createElement("p");
+  const tempToggleButton = document.querySelectorAll(".grid-button");
+  const dailyContainer = document.getElementById("daily__Container");
+  let tagArray = dailyContainer.childNodes;
+  let todaysDate = new Date();
+  let day = String(todaysDate.getDate()).padStart(2, "0");
+  let month = String(todaysDate.getMonth() + 1).padStart(2, "0");
+  let year = todaysDate.getFullYear();
+  todaysDate = month + "/" + day + "/" + year;
+  dateTag.innerText = todaysDate;
+  tagArray[1].appendChild(dateTag);
+  tempToggleButton.forEach((item) =>
+    item.addEventListener("click", () => {
+      const temp = item.parentElement.innerText.split(" ").join("");
+      fetch(`http://127.0.0.1:5000/tempconvert/${temp}`, {
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if (res.split(" ")[1] === "C") {
+            item.parentElement.firstElementChild.innerText = res;
+          } else if (res.split(" ")[1] === "F") {
+            item.parentElement.firstElementChild.innerText = res;
+          } else {
+            const error = new Error("There was an error converting the temp");
+            throw error;
+          }
+        })
+        .catch((e) => console.log("chem template error: ", e));
+    })
+  );
+</script>
+
+{% endblock %}

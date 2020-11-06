@@ -1,0 +1,232 @@
+{% extends 'base.html' %} {% block body %}
+<br />
+<img style="padding: 2rem; opacity: 0.8" id="alchemy__Image" src="{{url_for('static', filename='img/alchemy.png')}}"
+  style="background-image: url('/static/img/alchemy.png')" alt="alchemy-img" />
+<h3>Flask Reactor</h3>
+<br />
+<div id="reactor__Box">
+  <div class="reactor__Container1">
+    <h2>Reactant</h2>
+    <div class="reactor__SelectBox1">
+      <div class="reactor__OptionsContainer1">
+        {% for i in elements %}
+        <div class="reactor__Option1">
+          <input type="radio" class="radio1" id="h{{i['element']}}1" name="{{i['element']}}1" />
+          <label for="{{i['element']}}1">{{i['element']}}</label>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="reactor__Selected1">Select reactant</div>
+      <div class="reactor__SearchBox1">
+        <input type="text" placeholder="Start Typing ..." />
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 2rem">
+    <p>Fusion</p>
+    <h1 id="reactor__Fusion" class="reactor__Fusion" style="padding: auto 0.5rem">
+      +
+    </h1>
+  </div>
+
+  <div class="reactor__Container2">
+    <h2>Reactant</h2>
+    <div class="reactor__SelectBox2">
+      <div class="reactor__OptionsContainer2">
+        {% for i in elements %}
+        <div class="reactor__Option2">
+          <input type="radio" class="radio2" id="h{{i['element']}}2" name="{{i['element']}}2" />
+          <label for="{{i['element']}}2">{{i['element']}}</label>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="reactor__Selected2">Select reactant</div>
+      <div class="reactor__SearchBox2">
+        <input style="width: auto" type="text" placeholder="Start Typing ..." />
+      </div>
+    </div>
+  </div>
+</div>
+<div id="el__Info">
+  <div id="el__Name"></div>
+    <img
+    id="py__Image"
+    src="{{url_for('static', filename='img/rock.png')}}"
+    alt="py-img"
+    style="display: none;"
+  />
+  <div id="el__Data"></div>
+</div>
+{% endblock %} {% block script %}
+
+
+
+<script>
+
+  /*------------reactant selection-------------*/
+  const dropdownOne = document.querySelector(".reactor__Selected1");
+  const dropdownTwo = document.querySelector(".reactor__Selected2");
+  const reactorContainerOne = document.querySelector(
+    ".reactor__OptionsContainer1"
+  );
+  const reactorContainerTwo = document.querySelector(
+    ".reactor__OptionsContainer2"
+  );
+  const reactantsListOne = document.querySelectorAll(".reactor__Option1");
+  const reactantsListTwo = document.querySelectorAll(".reactor__Option2");
+  const searchInputOne = document.querySelector(".reactor__SearchBox1 input");
+  const searchInputTwo = document.querySelector(".reactor__SearchBox2 input");
+
+  const filterListOne = (chars) => {
+    chars = chars.toLowerCase();
+    reactantsListOne.forEach((option) => {
+      let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+      if (label.indexOf(chars) != -1) {
+        option.style.display = "block";
+      } else {
+        option.style.display = "none";
+      }
+    });
+  };
+
+  searchInputOne.value = "";
+  filterListOne("");
+
+  reactantsListOne.forEach((element) => {
+    element.addEventListener("click", () => {
+      dropdownOne.innerHTML = element.querySelector("label").innerHTML;
+      reactorContainerOne.classList.remove("active");
+    });
+  });
+
+  dropdownOne.addEventListener("click", () => {
+    reactorContainerOne.classList.toggle("active");
+    if (reactorContainerOne.classList.contains("active")) {
+      searchInputOne.focus();
+    }
+  });
+
+  searchInputOne.addEventListener("keyup", (event) => {
+    filterListOne(event.target.value);
+  });
+
+
+
+  const filterListTwo = (chars) => {
+    chars = chars.toLowerCase();
+    reactantsListTwo.forEach((option) => {
+      let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+      if (label.indexOf(chars) != -1) {
+        option.style.display = "block";
+      } else {
+        option.style.display = "none";
+      }
+    });
+  };
+
+  searchInputTwo.value = "";
+  filterListTwo("");
+
+  reactantsListTwo.forEach((element) => {
+    element.addEventListener("click", () => {
+      dropdownTwo.innerHTML = element.querySelector("label").innerHTML;
+      reactorContainerTwo.classList.remove("active");
+    });
+  });
+
+  dropdownTwo.addEventListener("click", () => {
+    reactorContainerTwo.classList.toggle("active");
+    if (reactorContainerTwo.classList.contains("active")) {
+      searchInputTwo.focus();
+    }
+  });
+
+  searchInputTwo.addEventListener("keyup", (event) => {
+    filterListTwo(event.target.value);
+  });
+
+  /*------------fusion request-------------*/
+  const reactionRequestImage = document.getElementById("reactor__Fusion");
+  const responseInfoBlock = document.getElementById("el__Info");
+  const responseDataBlock = document.getElementById("el__Data");
+  const responseElementnameBlock = document.getElementById("el__Name");
+  const responsePyImage = document.getElementById("py__Image");
+  const responseNameTag = document.createElement("h2");
+  const responseSymbolTag = document.createElement('p');
+  const responseMeltingTag = document.createElement('p');
+  const responseBoilingTag = document.createElement('p');
+  const responseWeightTag = document.createElement('p');
+  const responseAtomicPychronsTag = document.createElement('p');
+  const responseUnorderedListTag = document.createElement('ul');
+  const responseDescriptionTag = document.createElement('p');
+
+  reactionRequestImage.addEventListener("click", () => {
+    if (
+      dropdownOne.innerHTML == "Select reactant" ||
+      dropdownTwo.innerHTML == "Select reactant"
+    )
+      return responseElementnameBlock.innerHTML = "<p>Please add both reactants</P>";
+    fetch(
+      `http://127.0.0.1:5000/reactor/${dropdownOne.innerHTML}|${dropdownTwo.innerHTML}`,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        responseElementnameBlock.innerHTML = ""
+        responsePyImage.style.display = "none";
+        responsePyImage.style.backgroundColor = "";
+        responsePyImage.style.padding = "";
+        responsePyImage.style.borderRadius = "";
+        responsePyImage.style.opacity = "";
+        responseUnorderedListTag.innerHTML = ""
+        const nameText = res["name"];
+        const symbolText = res["symbol"];
+        const meltingText = res["melting point"];
+        const boilingText = res["boiling point"];
+        const atomicPychronsText = res["atomic pychrons"];
+        const weightText = res["weight"];
+        const descriptionText = res["description"];
+        responseNameTag.innerText = nameText;
+        responseSymbolTag.innerText = symbolText;
+        responseMeltingTag.innerText = `Melting point ${meltingText} F`;
+        responseBoilingTag.innerText = `Boiling point ${boilingText} F`;
+        responseAtomicPychronsTag.innerText = `Atomic pychrons: ${atomicPychronsText}`;
+        responseWeightTag.innerText = `Atomic weight: ${weightText} Daltons`;
+        responseDescriptionTag.innerText = res['description'];
+        responseDescriptionTag.style.fontStyle = 'italic';
+        let tagsArray = [
+          responseSymbolTag,
+          responseAtomicPychronsTag,
+          responseMeltingTag,
+          responseBoilingTag,
+          responseWeightTag,
+        ];
+        tagsArray.forEach((tag) => {
+          let listTag = document.createElement("li");
+          listTag.appendChild(tag);
+          responseUnorderedListTag.appendChild(listTag);
+        });
+        responseUnorderedListTag.style.listStyleType = "square";
+        responseUnorderedListTag.style.display = "inline-block";
+        responseUnorderedListTag.style.textAlign = "left";
+        responseUnorderedListTag.style.marginBottom = "2rem";
+        responseElementnameBlock.appendChild(responseNameTag);
+        responsePyImage.style.display = "";
+        responsePyImage.style.backgroundColor = res['color'];
+        responsePyImage.style.padding = "0.25rem";
+        responsePyImage.style.borderRadius = "15%";
+        responsePyImage.style.opacity = res['opacity'];
+        responseDataBlock.appendChild(responseUnorderedListTag);
+        responseDataBlock.appendChild(responseDescriptionTag);
+      })
+      .catch((e) => console.log("reactor template error: ", e));
+  });
+
+</script>
+
+{% endblock %}

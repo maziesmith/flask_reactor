@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />
+     <title>Flask Reactor</title>
+</head>
+
+<body>
+     <div id="base__Template">
+          <div id="base__Content">
+               <div id="base__Navigation">
+                    <a class="base__Link" href="{{ url_for('home')}}">Home</a> |
+                    <a class="base__Link" href="{{ url_for('daily')}}">Daily Element</a>
+                    |
+                    <a class="base__Link" href="{{ url_for('chem')}}">Periodic Table</a> |
+                    <a class="base__Link" href="{{ url_for('industry')}}">Industry</a> |
+                    <a class="base__Link" href="{{ url_for('reactor')}}">Flask Reactor</a>
+               </div>
+               <div>
+                    <img id="dayTheme__Image" src="{{url_for('static', filename='img/moon.png')}}" alt="theme-day" />
+                    <img id="nightTheme__Image" src="{{url_for('static', filename='img/day.png')}}" alt="theme-night"
+                         style="display: none" />
+               </div>
+          </div>
+
+          {% block body %}{% endblock %}
+     </div>
+     <script src="{{url_for('static', filename='js/index.js')}}"></script>
+     {% block script %}{% endblock %}
+</body>
+
+</html>

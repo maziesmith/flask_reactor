@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block body %}
+<div id="home__Container">
+  <img
+  id="home__Atom"
+    class="spin"
+    src="{{url_for('static', filename='img/atom.png')}}"
+    alt="atom-img"
+  />
+  <br/>
+  <img
+    id="home__Image"
+    src="{{url_for('static', filename='img/chemistry.png')}}"
+    alt="home-img"
+  />
+  <p class="home__Quote">
+    Chemistry begins in the stars. The stars are the source of the chemical
+    elements, which are the building blocks of matter and the core of our
+    subject.
+  </p>
+  <p class="home__Quote">- Peter Atkins</p>
+</div>
+
+{% endblock %}

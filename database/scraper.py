@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from .database import SessionLocal, engine
 from database import models
 from .models import News
-from secret import SCRAPER_TARGET
+from secrets import SCRAPER_TARGET
 
 # db open
 db = SessionLocal()
