@@ -598,4 +598,76 @@ periodic_table = [
         "boiling point": 4716.0,
         "symbol": "Sn"
     },
+        {
+        "atomic number": 51,
+        "element": "antimony",
+        "atomic weight": 121.76,
+        "class": "metalloid",
+        "phase": "solid",
+        "period": 5,
+        "electron config": '1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p3',
+        "melting point": 1167,
+        "boiling point": 2888,
+        "symbol": "Sb"
+    },
+    {
+        "atomic number": 52,
+        "element": "tellurium",
+        "atomic weight": 127.61,
+        "class": "metalloid",
+        "phase": "solid",
+        "period": 5,
+        "electron config": '1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p4',
+        "melting point": 841.1,
+        "boiling point": 1810,
+        "symbol": "Te"
+    },
+    {
+        "atomic number": 53,
+        "element": "iodine",
+        "atomic weight": 126.90,
+        "class": "halogen",
+        "phase": "solid",
+        "period": 5,
+        "electron config": '1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5',
+        "melting point": 236.7,
+        "boiling point": 363.7,
+        "symbol": "I"
+    },
+    {
+        "atomic number": 54,
+        "element": "xenon",
+        "atomic weight": 131.29,
+        "class": "noble gas",
+        "phase": "gas",
+        "period": 5,
+        "electron config": '1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6',
+        "melting point": -169.2,
+        "boiling point": -162.6,
+        "symbol": "Xe"
+    },
+    {
+        "atomic number": 55,
+        "element": "caesium",
+        "atomic weight": 132.91,
+        "class": "alkali metal",
+        "phase": "solid",
+        "period": 6,
+        "electron config": '1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1',
+        "melting point": 83.2,
+        "boiling point": 1240,
+        "symbol": "Cs"
+    },
+    {
+        "atomic number": 56,
+        "element": "barium",
+        "atomic weight": 137.33,
+        "class": "alkaline earth metal",
+        "phase": "solid",
+        "period": 6,
+        "electron config": '1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s2',
+        "melting point": 1341,
+        "boiling point": 3447,
+        "symbol": "Ba"
+    },
 ]
