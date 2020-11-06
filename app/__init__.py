@@ -9,18 +9,20 @@ from reactor.reactor import FlaskReactor
 from database.models import Element, Daily, News
 from database.elements import periodic_table
 from config import ENV
-from secrets import LOCAL_DB
+# from secrets import LOCAL_DB
 
 app = Flask(__name__)
 
-# pg = os.environ.get('DATABASE_URL')
+pg = os.environ.get('DATABASE_URL')
 
-if ENV == 'dev':
-    app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = LOCAL_DB
-# else:
-#     app.debug = False
-#     app.config['SQLALCHEMY_DATABASE_URI'] = pg
+# if ENV == 'dev':
+#     app.debug = True
+#     app.config['SQLALCHEMY_DATABASE_URI'] = LOCAL_DB
+
+
+if ENV == 'prod':
+    app.debug = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = pg
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 

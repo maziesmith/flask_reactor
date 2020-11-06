@@ -4,16 +4,16 @@ from bs4 import BeautifulSoup
 from .database import SessionLocal, engine
 from database import models
 from .models import News
-from secrets import SCRAPER_TARGET
+# from secrets import SCRAPER_TARGET
 
 # db open
 db = SessionLocal()
 models.Base.metadata.create_all(bind=engine)
 
-# SCRAPE_TARGET = os.environ.get('scraper_target')
+SCRAPE_TARGET = os.environ.get('scraper_target')
 
 # scrape
-res = requests.get(SCRAPER_TARGET, headers={'User-Agent': 'MOzilla/5.0'})
+res = requests.get(SCRAPE_TARGET, headers={'User-Agent': 'MOzilla/5.0'})
 chemical_soup = BeautifulSoup(res.text, 'html.parser')
 soup_list = chemical_soup.find_all('h2')
 
