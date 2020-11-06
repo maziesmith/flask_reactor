@@ -48,7 +48,7 @@
       const el = element.firstElementChild.innerHTML;
       elementInfoResponse.innerHTML = ""
       responseUnorderedListTag.innerHTML = ""
-      fetch(`https://flaskreactor.herokuapp.com/chem/${el}`, {
+      fetch(`http://localhost:5000/chem/${el}`, {
     headers: { "Content-Type": "application/json" },
   })
     .then((res) => {
