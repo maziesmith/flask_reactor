@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, url_for, request, redirect, jsonify, _app_ctx_stack
-from flask_cors import CORS
+# from flask_cors import CORS
 from sqlalchemy.orm import scoped_session
 from database import models
 from database.database import SessionLocal, engine, Base
@@ -13,7 +13,7 @@ from config import ENV
 # from secrets import LOCAL_DB
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://flaskreactor.herokuapp.com"}})
+# CORS(app, resources={r"/*": {"origins": "https://flaskreactor.herokuapp.com"}})
 pg = os.environ.get('DATABASE_URL')
 
 # if ENV == 'dev':
