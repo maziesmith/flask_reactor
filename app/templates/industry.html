@@ -1,25 +1,24 @@
 {% extends 'base.html' %} {% block body %}
-<hr />
-<div id="grid-container">
-  <div class="grid-item  grid-item-one">
-    <h3 id="industry__Header">Recent Articles</h3>
+<div class="industry">
+  <div class="industry-column  industry-column__1">
+    <h3 class="industry-column__title">Recent Articles</h3>
     {% for item in news %}
-    <a class="industry__Link" href="{{item[1][1]}}" target="_blank">> {{item[0][1]}}</a>
+    <a class="industry-column__link" href="{{item[1][1]}}" target="_blank">> {{item[0][1]}}</a>
     <hr class="separator" />
     {% endfor %}
   </div>
-  <div class="grid-item  grid-item-two">
+  <div class="industry-column  industry-column__2">
     <br/>
-    <div>
-      <input id="industry__TextBox" type="text" value="" placeholder="search google" />
-      <button id="industry__Search">Search news</button>
+    <div class="industry-column__search news">
+      <input class="news__input" type="text" value="" placeholder="search google" />
+      <button class="news__button">Search news</button>
     </div>
     <br/>
     <hr/>
     <br/>
-    <div id="industry__Companies">
+    <div class="industry-column__companies companies">
       <h2>Industry Leaders</h2>
-      <ul id="industry__List">
+      <ul class="companies__list">
         <li>
           <a href="https://www.solvay.com/en/" target="_blank" alt="solvay-tag">Solvay</a>
         </li>
@@ -38,16 +37,16 @@
 {% endblock %} {% block script %}
 
 <script>
-  const searchInput = document.getElementById("industry__TextBox");
-  const searchButton = document.getElementById("industry__Search");
-  const newsLinks = document.querySelectorAll('.industry__Link')
+  const searchInput = document.querySelector(".news__input");
+  const searchButton = document.querySelector(".news__button");
+  const newsLinks = document.querySelectorAll('.industry-column__link');
   searchButton.addEventListener("click", () => {
     window.open(`https://google.com/search?q=${searchInput.value}`);
     searchInput.value = "";
   });
   newsLinks.forEach(link => {
     link.addEventListener('mouseover', () => {
-      link.classList.add("industry__LinkToggle");
+      link.classList.add("industry-column__link--toggle");
     })
   })
 

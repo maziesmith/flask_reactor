@@ -1,37 +1,33 @@
 {% extends 'base.html' %} {% block body %}
-      <div id="chem__Container">
-            <br />
-            <br />
-            <br />
-            <img id="chem_TablePNG" class="chem_TablePNGDay" src="{{url_for('static', filename='img/periodic_table.png')}}"
-              alt="table" />
-            <br />
-            <br />
-            <a id="chem__View" href="{{url_for('static', filename='img/periodic_table.png')}}" target="_blank">view</a>
-            <br />
-            <br />
-            <br />
-            <hr id="chem__Separator" />
-      </div>
-<br />
-      <img id="chem__Image" src="{{url_for('static', filename='img/arrow.png')}}" alt="arrow-chem" />
-      <p>scroll</p>
-      <section id="chem__CarouselSection" style="max-width: 100px;" class="chem__CarouselDay">
-            {% for i in elements %}
-            <div class="chem__CarouselDayContent chem-square"><h1>{{i['symbol']}}</h1><p>{{i['element']}}</p></div>
-            {% endfor %}
-      </section>
-
-<hr id="chem__Separator" />
-<br/>
-<div id="chem__Info"></div>
+<div class="chem">
+  <div class="chem__table chemtable">
+    <img class="chemtable__image chemtable__image--day" src="{{url_for('static', filename='img/periodic_table.png')}}"
+      alt="chem-table" />
+      <br/>
+    <a class="chemtable__link" href="{{url_for('static', filename='img/periodic_table.png')}}" target="_blank">view</a>
+  </div>
+  <hr class="chem__separator" />
+  <br/>
+  <img class="chem-image chem-image--day" src="{{url_for('static', filename='img/arrow.png')}}" alt="chem-arrow" />
+  <p>scroll</p>
+  <div class="chem__carousel chem__carousel--day carousel" style="max-width: 100px;">
+    {% for i in elements %}
+    <div class="carousel__content carousel__content--day chem-square">
+      <h1>{{i['symbol']}}</h1>
+      <p>{{i['element']}}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <hr class="chem__separator" />
+  <div class="chem__response"></div>
+</div>
 {% endblock %} {% block script %}
 
 <script>
-  const periodicTableImage = document.getElementById("chem_TablePNG");
-  const viewPeriodicTableLink = document.getElementById("chem__View");
+  const periodicTableImage = document.querySelector(".chemtable__image");
+  const viewPeriodicTableLink = document.querySelector(".chemtable__link");
   const elementSquare = document.querySelectorAll('.chem-square');
-  const elementInfoResponse = document.getElementById('chem__Info');
+  const elementInfoResponse = document.querySelector('.chem__response');
   const responseNameTag = document.createElement("h2");
   const responseBreakTag = document.createElement('BR');
   const responseCategoryTag = document.createElement('p');
@@ -49,85 +45,84 @@
       elementInfoResponse.innerHTML = ""
       responseUnorderedListTag.innerHTML = ""
       fetch(`http://127.0.0.1:5000/chem/${el}`, {
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => { 
-      const categoryText = `Element type: ${res.class.charAt(0).toUpperCase() + res.class.slice(1)}`;
-      const nameText = res.name.charAt(0).toUpperCase() + res.name.slice(1);
-      const meltingText = `Melting point: ${res['melting point']} F`;
-      const boilingText = `Boiling point: ${res['boiling point']} F`;
-      const phaseText = `${res.phase.charAt(0).toUpperCase() + res.phase.slice(1)}`
-      const weightText = `Atomic weight: ${res.weight} Daltons`
-      const atomicNumberText = `Protons: ${res['atomic number']}`
-      responseNameTag.innerText = nameText;
-      responseNameTag.style.textDecoration = 'underline';
-      responseBreakTag.innerHTML = '<br/>';
-      responseCategoryTag.innerText = categoryText;
-      responseMeltingTag.innerText = meltingText;
-      responseBoilingTag.innerText = boilingText;
-      responsePhaseTag.innerText = phaseText;
-      responseWeightTag.innerText = weightText;
-      responseAtomicNumberTag.innerText = atomicNumberText;
-      const tagsArray = [responseAtomicNumberTag, responseCategoryTag, responseMeltingTag, responseBoilingTag, responseWeightTag];
-      tagsArray.forEach((tag) => {
-        let listTag = document.createElement('li');
-        listTag.appendChild(tag);
-        responseUnorderedListTag.appendChild(listTag);
+        headers: { "Content-Type": "application/json" },
       })
-      responseUnorderedListTag.style.listStyleType = 'square'
-      responseUnorderedListTag.style.display = 'inline-block'
-      responseUnorderedListTag.style.textAlign = 'left'
-      responseUnorderedListTag.style.marginBottom = '2rem'
-      responseNameTag.setAttribute("id", "chem__ElementInfo");     
-      if (document.readyState === "complete" || document.readyState === "loaded") {
-      elementInfoResponse.appendChild(responseNameTag);
-      elementInfoResponse.appendChild(responsePhaseTag);
-      elementInfoResponse.appendChild(responseBreakTag);
-      elementInfoResponse.appendChild(responseUnorderedListTag);
-      }
-      
-    })
-    .catch((e) => console.log("chem template error: ", e));
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          const categoryText = `Element type: ${res.class.charAt(0).toUpperCase() + res.class.slice(1)}`;
+          const nameText = res.name.charAt(0).toUpperCase() + res.name.slice(1);
+          const meltingText = `Melting point: ${res['melting point']} F`;
+          const boilingText = `Boiling point: ${res['boiling point']} F`;
+          const phaseText = `${res.phase.charAt(0).toUpperCase() + res.phase.slice(1)}`
+          const weightText = `Atomic weight: ${res.weight} Daltons`
+          const atomicNumberText = `Protons: ${res['atomic number']}`
+          responseNameTag.innerText = nameText;
+          responseNameTag.style.textDecoration = 'underline';
+          responseBreakTag.innerHTML = '<br/>';
+          responseCategoryTag.innerText = categoryText;
+          responseMeltingTag.innerText = meltingText;
+          responseBoilingTag.innerText = boilingText;
+          responsePhaseTag.innerText = phaseText;
+          responseWeightTag.innerText = weightText;
+          responseAtomicNumberTag.innerText = atomicNumberText;
+          const tagsArray = [responseAtomicNumberTag, responseCategoryTag, responseMeltingTag, responseBoilingTag, responseWeightTag];
+          tagsArray.forEach((tag) => {
+            let listTag = document.createElement('li');
+            listTag.appendChild(tag);
+            responseUnorderedListTag.appendChild(listTag);
+          })
+          responseUnorderedListTag.style.listStyleType = 'square'
+          responseUnorderedListTag.style.display = 'inline-block'
+          responseUnorderedListTag.style.textAlign = 'left'
+          responseUnorderedListTag.style.marginBottom = '2rem'
+          if (document.readyState === "complete" || document.readyState === "loaded") {
+            elementInfoResponse.appendChild(responseNameTag);
+            elementInfoResponse.appendChild(responsePhaseTag);
+            elementInfoResponse.appendChild(responseBreakTag);
+            elementInfoResponse.appendChild(responseUnorderedListTag);
+          }
+
+        })
+        .catch((e) => console.log("chem template error: ", e));
     })
   })
 
 
   periodicTableImage.addEventListener("mouseover", () => {
-    let themeColor = document.getElementById("base__Template");
+    let themeColor = document.querySelector(".base");
     const themeComputedColor = getComputedStyle(
       themeColor,
       null
     ).getPropertyValue("background-color");
     if (themeComputedColor === "rgb(238, 238, 238)") {
-      viewPeriodicTableLink.classList.add("chem__ViewDay");
-      let nightThemeCheck = document.querySelector(".chem_TablePNGNight");
+      viewPeriodicTableLink.classList.add("chemtable__link--day");
+      let nightThemeCheck = document.querySelector(".chemtable__image--night");
       if (nightThemeCheck) {
-        periodicTableImage.classList.remove("chem_TablePNGNight");
-        periodicTableImage.classList.add("chem_TablePNGDay");
+        periodicTableImage.classList.remove("chemtable__image--night");
+        periodicTableImage.classList.add("chemtable__image--day");
       }
     } else if (themeComputedColor === "rgba(28, 43, 45, 0.9)") {
-      viewPeriodicTableLink.classList.add("chem__ViewNight");
-      let dayThemeCheck = document.querySelector(".chem_TablePNGDay");
+      viewPeriodicTableLink.classList.add("chemtable__link--night");
+      let dayThemeCheck = document.querySelector(".chemtable__image--day");
       if (dayThemeCheck) {
-        periodicTableImage.classList.remove("chem_TablePNGDay");
-        periodicTableImage.classList.add("chem_TablePNGNight");
+        periodicTableImage.classList.remove("chemtable__image--day");
+        periodicTableImage.classList.add("chemtable__image--night");
       }
     }
   });
 
 
   periodicTableImage.addEventListener("mouseleave", () => {
-    if (viewPeriodicTableLink.classList.value === "chem__ViewNight") {
-      viewPeriodicTableLink.classList.remove("chem__ViewNight");
-    } else if (viewPeriodicTableLink.classList.value === "chem__ViewDay")
-      viewPeriodicTableLink.classList.remove("chem__ViewDay");
+    if (viewPeriodicTableLink.classList[1] == "chemtable__link--night") {
+      viewPeriodicTableLink.classList.remove("chemtable__link--night");
+    } else if (viewPeriodicTableLink.classList[1] == "chemtable__link--day"){
+      viewPeriodicTableLink.classList.remove("chemtable__link--day");
+    }
   });
 
 
 </script>
 
 {% endblock %}
-</div>

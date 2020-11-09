@@ -9,19 +9,19 @@
 </head>
 
 <body>
-     <div id="base__Template">
-          <div id="base__Content">
-               <div id="base__Navigation">
-                    <a class="base__Link" href="{{ url_for('home')}}">Home</a> |
-                    <a class="base__Link" href="{{ url_for('daily')}}">Daily Element</a>
+     <div class="base">
+          <div class="base__content">
+               <div class="navigation">
+                    <a class="navigation__link" href="{{ url_for('home')}}">Home</a> |
+                    <a class="navigation__link" href="{{ url_for('daily')}}">Daily Element</a>
                     |
-                    <a class="base__Link" href="{{ url_for('chem')}}">Periodic Table</a> |
-                    <a class="base__Link" href="{{ url_for('industry')}}">Industry</a> |
-                    <a class="base__Link" href="{{ url_for('reactor')}}">Flask Reactor</a>
+                    <a class="navigation__link" href="{{ url_for('chem')}}">Periodic Table</a> |
+                    <a class="navigation__link" href="{{ url_for('industry')}}">Industry</a> |
+                    <a class="navigation__link" href="{{ url_for('reactor')}}">Flask Reactor</a>
                </div>
                <div>
-                    <img id="dayTheme__Image" src="{{url_for('static', filename='img/moon.png')}}" alt="theme-day" />
-                    <img id="nightTheme__Image" src="{{url_for('static', filename='img/day.png')}}" alt="theme-night"
+                    <img class="theme__link--day" src="{{url_for('static', filename='img/moon.png')}}" alt="theme-day" />
+                    <img class="theme__link--night" src="{{url_for('static', filename='img/day.png')}}" alt="theme-night"
                          style="display: none" />
                </div>
           </div>

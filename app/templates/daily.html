@@ -1,114 +1,96 @@
 {% extends 'base.html' %} {% block body %}
-<div id="daily__Container">
-  <div id="daily__Heading">
+<div class="daily">
+  <div class="daily__heading">
     <h3>- ELEMENT OF THE DAY -</h3>
   </div>
 
   <br />
-  <div id="daily__Content">
+  <div class="daily__body">
     <table style="width: 90%">
       <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Element</p>
+        <td class="col-1-of-2">
+          <p>Element</p>
         </td>
-        <td class="col-2">
-          <p p class="daily__TableData">{{element['name']}}</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Symbol</p>
-        </td>
-        <td class="col-2">
-          <p class="daily__TableData">{{element['symbol']}}</p>
+        <td class="col-2-of-2">
+          <p p>{{element['name']}}</p>
         </td>
       </tr>
       <tr>
-        <td class="col-1"><p class="daily__TableData">Melting point</p></td>
-        <td id="grid-containerDailyMelting">
-          <p
-            id="daily__Melting"
-            class="grid-item-one-daily daily__TableData col-2"
-          >
+        <td class="col-1-of-2">
+          <p>Symbol</p>
+        </td>
+        <td class="col-2-of-2">
+          <p>{{element['symbol']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1-of-2">
+          <p>Melting point</p>
+        </td>
+        <td class="daily-gridmelting">
+          <p class="daily-gridmelting__text">
             {{element['melting point']}} F
           </p>
-          <img
-            id="daily__ToggleDayOne"
-            class="grid-item-daily grid-item-two-daily grid-button daily-button-day"
-            src="{{url_for('static', filename='img/toggleday.png')}}"
-            alt="toggle-day-melting"
-          />
-          <img
-            id="daily__ToggleNightOne"
-            class="grid-item-daily grid-item-two-daily grid-button daily-button-night"
-            src="{{url_for('static', filename='img/togglenight.png')}}"
-            alt="toggle-night-melting"
-            style="display: none"
-          />
+          <img class="daily-gridmelting__image daily-gridmelting__image--day daily-icon button button--day"
+            src="{{url_for('static', filename='img/toggleday.png')}}" alt="toggle-day-melting" />
+          <img class="daily-gridmelting__image daily-gridmelting__image--night daily-icon button button--night"
+            src="{{url_for('static', filename='img/togglenight.png')}}" alt="toggle-night-melting"
+            style="display: none" />
         </td>
       </tr>
       <tr>
-        <td class="col-1"><p class="daily__TableData">Boiling point</p></td>
-        <td id="grid-containerDailyBoiling">
-          <p
-            id="daily__Boiling"
-            class="grid-item-test grid-item-one-test daily__TableData col-2"
-          >
+        <td class="col-1-of-2">
+          <p>Boiling point</p>
+        </td>
+        <td class="daily-gridboiling">
+          <p class="daily-gridboiling__text">
             {{element['boiling point']}} F
           </p>
-          <img
-            id="daily__ToggleDayTwo"
-            class="grid-item-daily grid-item-two-daily grid-button daily-button-day"
-            src="{{url_for('static', filename='img/toggleday.png')}}"
-            alt="toggle-day-boiling"
-          />
-          <img
-            id="daily__ToggleNightTwo"
-            class="grid-item-daily grid-item-two-daily grid-button daily-button-night"
-            src="{{url_for('static', filename='img/togglenight.png')}}"
-            alt="toggle-night-boiling"
-            style="display: none"
-          />
+          <img class="daily-gridboiling__image daily-gridboiling__image--day daily-icon button button--day"
+            src="{{url_for('static', filename='img/toggleday.png')}}" alt="toggle-day-boiling" />
+          <img class="daily-gridboiling__image daily-gridboiling__image--night daily-icon button button--night"
+            src="{{url_for('static', filename='img/togglenight.png')}}" alt="toggle-night-boiling"
+            style="display: none" />
         </td>
       </tr>
       <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Category</p>
+        <td class="col-1-of-2">
+          <p>Category</p>
         </td>
-        <td class="col-2">
-          <p class="daily__TableData">{{element['class']}}</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Period</p>
-        </td>
-        <td class="col-2">
-          <p class="daily__TableData">{{element['period']}}</p>
+        <td class="col-2-of-2">
+          <p>{{element['class']}}</p>
         </td>
       </tr>
       <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Weight</p>
+        <td class="col-1-of-2">
+          <p>Period</p>
         </td>
-        <td class="col-2">
-          <p class="daily__TableData">{{element['weight']}} Daltons</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Atomic number</p>
-        </td>
-        <td class="col-2">
-          <p class="daily__TableData">{{element['atomic number']}}</p>
+        <td class="col-2-of-2">
+          <p>{{element['period']}}</p>
         </td>
       </tr>
       <tr>
-        <td class="col-1">
-          <p class="daily__TableData">Room Temp</p>
+        <td class="col-1-of-2">
+          <p>Weight</p>
         </td>
-        <td class="col-2">
-          <p class="daily__TableData">{{element['phase']}}</p>
+        <td class="col-2-of-2">
+          <p>{{element['weight']}} Daltons</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1-of-2">
+          <p>Atomic number</p>
+        </td>
+        <td class="col-2-of-2">
+          <p>{{element['atomic number']}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-1-of-2">
+          <p>Room Temp</p>
+        </td>
+        <td class="col-2-of-2">
+          <p>{{element['phase']}}</p>
         </td>
       </tr>
     </table>
@@ -116,9 +98,9 @@
 </div>
 {% endblock %} {% block script %}
 <script>
+  const tempToggleButton = document.querySelectorAll(".daily-icon");
+  const dailyContainer = document.querySelector(".daily");
   const dateTag = document.createElement("p");
-  const tempToggleButton = document.querySelectorAll(".grid-button");
-  const dailyContainer = document.getElementById("daily__Container");
   let tagArray = dailyContainer.childNodes;
   let todaysDate = new Date();
   let day = String(todaysDate.getDate()).padStart(2, "0");

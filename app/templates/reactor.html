@@ -1,61 +1,62 @@
 {% extends 'base.html' %} {% block body %}
-<br />
-<img style="padding: 2rem; opacity: 0.8" id="alchemy__Image" src="{{url_for('static', filename='img/alchemy.png')}}"
-  style="background-image: url('/static/img/alchemy.png')" alt="alchemy-img" />
-<h3>Flask Reactor</h3>
-<br />
-<div id="reactor__Box">
-  <div class="reactor__Container1">
-    <h2>Reactant</h2>
-    <div class="reactor__SelectBox1">
-      <div class="reactor__OptionsContainer1">
-        {% for i in elements %}
-        <div class="reactor__Option1">
-          <input type="radio" class="radio1" id="h{{i['element']}}1" name="{{i['element']}}1" />
-          <label for="{{i['element']}}1">{{i['element']}}</label>
+<div class="reactor">
+  <div class="reactor__header head">
+    <img class="head__image" style="padding: 2rem; opacity: 0.8" src="{{url_for('static', filename='img/alchemy.png')}}"
+      style="background-image: url('/static/img/alchemy.png')" alt="alchemy-icon" />
+    <h3>Flask Reactor</h3>
+  </div>
+  <br />
+  <div class="reactor__content">
+    <div class="reactor__content--1 dropdown-1">
+      <h2>Reactant</h2>
+      <div class="dropdown-1__select">
+        <div class="dropdown-1__options">
+          {% for i in elements %}
+          <div class="dropdown-1__option">
+            <input type="radio" class="radio1" id="h{{i['element']}}1" name="{{i['element']}}1" />
+            <label for="{{i['element']}}1">{{i['element']}}</label>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-      <div class="reactor__Selected1">Select reactant</div>
-      <div class="reactor__SearchBox1">
-        <input type="text" placeholder="Start Typing ..." />
+        <div class="dropdown-1__selected">Select reactant</div>
+        <div class="dropdown-1__search">
+          <input type="text" placeholder="Start Typing ..." />
+        </div>
       </div>
     </div>
-  </div>
-  <div style="margin-top: 2rem">
-    <p>Fusion</p>
-    <h1 id="reactor__Fusion" class="reactor__Fusion" style="padding: auto 0.5rem">
-      +
-    </h1>
-  </div>
 
-  <div class="reactor__Container2">
-    <h2>Reactant</h2>
-    <div class="reactor__SelectBox2">
-      <div class="reactor__OptionsContainer2">
-        {% for i in elements %}
-        <div class="reactor__Option2">
-          <input type="radio" class="radio2" id="h{{i['element']}}2" name="{{i['element']}}2" />
-          <label for="{{i['element']}}2">{{i['element']}}</label>
+
+    <div class="reactor__content--2 fusion" style="margin-top: 2rem">
+      <p>Fusion</p>
+      <h1 class="fusion__symbol" style="padding: auto 0.5rem">
+        +
+      </h1>
+    </div>
+
+    <div class="reactor__content--3 dropdown-2">
+      <h2>Reactant</h2>
+      <div class="dropdown-2__select">
+        <div class="dropdown-2__options">
+          {% for i in elements %}
+          <div class="dropdown-2__option">
+            <input type="radio" class="radio2" id="h{{i['element']}}2" name="{{i['element']}}2" />
+            <label for="{{i['element']}}2">{{i['element']}}</label>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-      <div class="reactor__Selected2">Select reactant</div>
-      <div class="reactor__SearchBox2">
-        <input style="width: auto" type="text" placeholder="Start Typing ..." />
+        <div class="dropdown-2__selected">Select reactant</div>
+        <div class="dropdown-2__search">
+          <input style="width: auto" type="text" placeholder="Start Typing ..." />
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div id="el__Info">
-  <div id="el__Name"></div>
-    <img
-    id="py__Image"
-    src="{{url_for('static', filename='img/rock.png')}}"
-    alt="py-img"
-    style="display: none;"
-  />
-  <div id="el__Data"></div>
+  <div class="reactor__response element">
+    <div class="element__name"></div>
+    <img class="element__image" src="{{url_for('static', filename='img/rock.png')}}" alt="py-img"
+      style="display: none;" />
+    <div class="element__data"></div>
+  </div>
 </div>
 {% endblock %} {% block script %}
 
@@ -64,18 +65,18 @@
 <script>
 
   /*------------reactant selection-------------*/
-  const dropdownOne = document.querySelector(".reactor__Selected1");
-  const dropdownTwo = document.querySelector(".reactor__Selected2");
+  const dropdownOne = document.querySelector(".dropdown-1__selected");
+  const dropdownTwo = document.querySelector(".dropdown-2__selected");
   const reactorContainerOne = document.querySelector(
-    ".reactor__OptionsContainer1"
+    ".dropdown-1__options"
   );
   const reactorContainerTwo = document.querySelector(
-    ".reactor__OptionsContainer2"
+    ".dropdown-2__options"
   );
-  const reactantsListOne = document.querySelectorAll(".reactor__Option1");
-  const reactantsListTwo = document.querySelectorAll(".reactor__Option2");
-  const searchInputOne = document.querySelector(".reactor__SearchBox1 input");
-  const searchInputTwo = document.querySelector(".reactor__SearchBox2 input");
+  const reactantsListOne = document.querySelectorAll(".dropdown-1__option");
+  const reactantsListTwo = document.querySelectorAll(".dropdown-2__option");
+  const searchInputOne = document.querySelector(".dropdown-1__search input");
+  const searchInputTwo = document.querySelector(".dropdown-2__search input");
 
   const filterListOne = (chars) => {
     chars = chars.toLowerCase();
@@ -146,11 +147,11 @@
   });
 
   /*------------fusion request-------------*/
-  const reactionRequestImage = document.getElementById("reactor__Fusion");
-  const responseInfoBlock = document.getElementById("el__Info");
-  const responseDataBlock = document.getElementById("el__Data");
-  const responseElementnameBlock = document.getElementById("el__Name");
-  const responsePyImage = document.getElementById("py__Image");
+  const reactionRequestImage = document.querySelector(".fusion__symbol");
+  const responseInfoBlock = document.querySelector(".reactor__response");
+  const responseDataBlock = document.querySelector(".element__data");
+  const responseElementnameBlock = document.querySelector(".element__name");
+  const responsePyImage = document.querySelector(".element__image");
   const responseNameTag = document.createElement("h2");
   const responseSymbolTag = document.createElement('p');
   const responseMeltingTag = document.createElement('p');
@@ -176,7 +177,6 @@
         return res.json();
       })
       .then((res) => {
-        console.log(res);
         responseElementnameBlock.innerHTML = ""
         responsePyImage.style.display = "none";
         responsePyImage.style.backgroundColor = "";
