@@ -168,7 +168,7 @@
     )
       return responseElementnameBlock.innerHTML = "<p>Please add both reactants</P>";
     fetch(
-      `http://127.0.0.1:5000/reactor/${dropdownOne.innerHTML}|${dropdownTwo.innerHTML}`,
+      `https://flaskreactor.herokuapp.com/reactor/${dropdownOne.innerHTML}|${dropdownTwo.innerHTML}`,
       {
         headers: { "Content-Type": "application/json" },
       }

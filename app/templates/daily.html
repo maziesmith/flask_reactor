@@ -112,7 +112,7 @@
   tempToggleButton.forEach((item) =>
     item.addEventListener("click", () => {
       const temp = item.parentElement.innerText.split(" ").join("");
-      fetch(`http://127.0.0.1:5000/tempconvert/${temp}`, {
+      fetch(`https://flaskreactor.herokuapp.com/tempconvert/${temp}`, {
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => {
